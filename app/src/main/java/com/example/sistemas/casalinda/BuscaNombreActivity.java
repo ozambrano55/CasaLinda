@@ -23,15 +23,15 @@ import com.example.sistemas.casalinda.interfaz.InterfazClickRecyclerViewB;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import static com.example.sistemas.casalinda.PedidoActivity.t;
 
 public class BuscaNombreActivity extends AppCompatActivity {
     Connection connect;
     String CODIGO, NOMBRE,CANTIDAD;
-    String NOMBRES,PRODUCTOS;
-    ArrayList<Busca>buscaList;
+   // String NOMBRES,PRODUCTOS;
+    //ArrayList<Busca>buscaList;
    String t1="Parametro";
    final AdaptadorRecyclerViewB adaptadorRecyclerViewB=new AdaptadorRecyclerViewB(new InterfazClickRecyclerViewB() {
        @Override

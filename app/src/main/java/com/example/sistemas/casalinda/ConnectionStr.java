@@ -18,14 +18,14 @@ String ip,db,DBUserNameStr,DBPasswordStr;
     public Connection connectionclasss()
     {
         ip = "190.110.214.14";
-        db = "siinf_casalinda_ec";
+        db = "siinf_casalindap_ec";
         DBUserNameStr = "Android";
         DBPasswordStr = "p!65or@lna#1522";
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         java.sql.Connection connection = null;
-        String ConnectionURL = null;
+        String ConnectionURL;
         try
         {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");

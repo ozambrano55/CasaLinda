@@ -16,7 +16,7 @@ import java.sql.Statement;
 
 public class CarteraActivity extends AppCompatActivity {
     Button btnConsultar;
-    View vista;
+    //View vista;
     TextView Cedula,Nombre,Saldo;
     EditText ET_Cedula;
 
@@ -24,7 +24,7 @@ public class CarteraActivity extends AppCompatActivity {
     // currency = new DecimalFormat( "###,###.##" );
     // Declaring connection variables
     Connection connect;
-    String DBUserNameStr,DBPasswordStr,db,ip,UserNameStr,PasswordStr,ced;
+    //String DBUserNameStr,DBPasswordStr,db,ip,UserNameStr,PasswordStr,ced;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
