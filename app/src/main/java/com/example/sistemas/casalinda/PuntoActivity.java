@@ -1,6 +1,8 @@
 package com.example.sistemas.casalinda;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -29,7 +31,8 @@ public class PuntoActivity extends AppCompatActivity {
     Connection connect;
     //claseGlobal objEscritura=(claseGlobal)getApplicationContext();
     //claseGlobal objLectura=(claseGlobal)getApplicationContext();
-
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,8 @@ public class PuntoActivity extends AppCompatActivity {
 
         twfuncioanrio = findViewById(R.id.txtFuncionario);
         twfuncioanrio.setText(objLectura.getFuncionario());
-
+        preferences=getSharedPreferences("guardar", Context.MODE_PRIVATE);
+        editor=preferences.edit();
         consultarpersona();
         comboPersonas = findViewById(R.id.comboPersonas);
         ArrayAdapter<CharSequence> adaptador=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,listaPuntos);
@@ -84,7 +88,9 @@ public class PuntoActivity extends AppCompatActivity {
             Statement stmt = connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
-                objEscritura.setC_bodega(rs.getString("C_Bodega"));
+                editor.putString("Bodega",rs.getString("C_Bodega"));
+                editor.apply();
+                objEscritura.setC_bodega(preferences.getString("Bodega", "No existe"));
             }
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -106,10 +112,13 @@ public class PuntoActivity extends AppCompatActivity {
 
         String seleccion=comboPersonas.getSelectedItem().toString();
         //punto=seleccion;
-
-        objEscritura.setPunto(seleccion);
-       objEscritura.setC_punto_venta(seleccion.substring(0,3));
-        consultabodega(objLectura.getC_punto_venta());
+        editor.putString("Punto", seleccion);
+        editor.putString("CPunto",seleccion.substring(0,3));
+        editor.apply();
+        objEscritura.setPunto(preferences.getString("Punto","No existe"));
+        objEscritura.setC_punto_venta(preferences.getString("CPunto","No existe"));
+        //consultabodega(objLectura.getC_punto_venta());
+        consultabodega(preferences.getString("CPunto","No Existe"));
         startActivity(goMainP);
         finish();
     }

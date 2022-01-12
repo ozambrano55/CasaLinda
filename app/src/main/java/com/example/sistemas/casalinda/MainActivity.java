@@ -1,7 +1,9 @@
 package com.example.sistemas.casalinda;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +24,8 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +36,8 @@ public class MainActivity extends AppCompatActivity
 
         claseGlobal objLectura=(claseGlobal)getApplicationContext();
 
-
+        preferences=getSharedPreferences("guardar", Context.MODE_PRIVATE);
+        editor=preferences.edit();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -46,8 +50,10 @@ public class MainActivity extends AppCompatActivity
         View hView =navigationView.getHeaderView(0);
         TextView punto= hView.findViewById(R.id.edtPunto);
         TextView funcionario= hView.findViewById(R.id.edtFuncionario);
-        punto.setText(objLectura.getPunto());
-        funcionario.setText(objLectura.getFuncionario());
+        punto.setText(preferences.getString("Punto","No Existe"));
+        funcionario.setText(preferences.getString("Funcionario","No Existe"));
+        //punto.setText(objLectura.getPunto());
+        //funcionario.setText(objLectura.getFuncionario());
         //fin codigo nuevo
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);

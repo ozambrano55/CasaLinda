@@ -1,7 +1,9 @@
 package com.example.sistemas.casalinda;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +28,8 @@ public class LoginActivity extends AppCompatActivity  {
     Button btn_login;
     EditText ET_Username,ET_Password;
     ProgressBar progressBar;
-    TextView txtcFun;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     Connection connect;
     String UserNameStr,PasswordStr,c_punto_venta;
@@ -35,7 +38,9 @@ public class LoginActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        //Inicia   ndo sharedpreference
+        preferences=getSharedPreferences("guardar",Context.MODE_PRIVATE);
+        editor=preferences.edit();
         // Getting values from button, texts and progress bar
         btn_login = findViewById(R.id.btn_login);
         ET_Username = findViewById(R.id.ET_Username);
@@ -131,15 +136,23 @@ public class LoginActivity extends AppCompatActivity  {
                             //ConnectionResult = "Bienvenido " + rs.getString(2);
                             // c_funcionario=rs.getString(1);
                             //funcionario=rs.getString(2);
-                            c_punto_venta=rs.getString(3);
+                            editor.putString("CPunto", rs.getString(3));
+                            editor.putString("CFuncionario",rs.getString(1));
+                            editor.putString("Funcionario",rs.getString(2));
+                            editor.putString("Punto",rs.getString(4));
+                            editor.putString("Bodega",rs.getString(5));
+                            editor.putString("CodPedido",rs.getString(5));
+                            editor.apply();
+                            c_punto_venta=preferences.getString("CPunto","No existe dato");
+                            //c_punto_venta=rs.getString(3);
                             //punto=rs.getString(4);
                             //llenando variables globales
-                            objEscritura.setC_funcionario(rs.getString(1));
-                            objEscritura.setFuncionario(rs.getString(2));
-                            objEscritura.setC_punto_venta(rs.getString(3));
-                            objEscritura.setPunto(rs.getString(4));
-                            objEscritura.setC_bodega(rs.getString(5));
-                            objEscritura.setCod_pedidos(rs.getString(6));
+                            objEscritura.setC_funcionario(preferences.getString("CFuncionario","No existe dato"));
+                            objEscritura.setFuncionario(preferences.getString("Funcionario","no existe dato"));
+                            objEscritura.setC_punto_venta(preferences.getString("CPunto","No existe Dato"));
+                            objEscritura.setPunto(preferences.getString("Punto","NO Existe dato"));
+                            objEscritura.setC_bodega(preferences.getString("Bodega","no existe"));
+                            objEscritura.setCod_pedidos(preferences.getString("CodPedido","No existe"));
                             isSuccess=true;
                             connect.close();
                         }
