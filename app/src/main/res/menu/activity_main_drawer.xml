@@ -12,7 +12,7 @@
             android:id="@+id/nav_cartera"
             android:icon="@drawable/car"
             android:title="Cartera"
-            android:visible="false" />
+            android:visible="True" />
         <item
             android:id="@+id/nav_cliente"
             android:icon="@drawable/ic_cli"

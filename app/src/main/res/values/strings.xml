@@ -9,7 +9,7 @@
         <item>JavaScript</item>
         <item>GO</item>
     </string-array>
-    <string name="app_name">CasaLinda</string>
+    <string name="app_name">Comisarito del Aseo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>

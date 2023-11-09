@@ -66,7 +66,7 @@ public String A,B,C;
         Busca busca =this.buscar.get(position);
         holder.getCodigo().setText(String.valueOf(busca.getCodigo()));
         holder.getNombre().setText(String.valueOf(busca.getNombre()));
-        holder.getCantidad().setText(String.valueOf(busca.getCantidad()));
+        holder.getCantidad().setText(String.valueOf(Double.valueOf( busca.getCantidad())));
     }
     @Override
     public int getItemViewType(int position){
