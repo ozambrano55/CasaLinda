@@ -1,5 +1,7 @@
 package com.example.sistemas.casalinda;
 
+import static com.example.sistemas.casalinda.PedidoActivity.t;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,9 +25,6 @@ import com.example.sistemas.casalinda.interfaz.InterfazClickRecyclerViewB;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-//import java.util.ArrayList;
-
-import static com.example.sistemas.casalinda.PedidoActivity.t;
 
 public class BuscaNombreActivity extends AppCompatActivity {
     Connection connect;

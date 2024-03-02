@@ -1,15 +1,18 @@
 package com.example.sistemas.casalinda;
 
+import static com.example.sistemas.casalinda.R.layout.activity_producto;
+
 import android.Manifest;
 import android.os.Bundle;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.example.sistemas.casalinda.Utilidades.claseGlobal;
 import com.google.zxing.Result;
@@ -19,8 +22,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
-
-import static com.example.sistemas.casalinda.R.layout.activity_producto;
 
 public class ProductoActivity extends AppCompatActivity {
     EditText codigo;

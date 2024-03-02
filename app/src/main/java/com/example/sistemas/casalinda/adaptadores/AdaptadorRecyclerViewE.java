@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sistemas.casalinda.entidades.Existencia;
-import com.example.sistemas.casalinda.interfaz.InterfazClickRecyclerViewE;
 import com.example.sistemas.casalinda.R;
+import com.example.sistemas.casalinda.entidades.Existencia;
 import com.example.sistemas.casalinda.holder.ViewHolderExistencia;
+import com.example.sistemas.casalinda.interfaz.InterfazClickRecyclerViewE;
 
 import java.util.ArrayList;
 import java.util.List;

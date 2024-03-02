@@ -1,5 +1,19 @@
 package com.example.sistemas.casalinda;
 
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.BOD;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.CAN;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.COD;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.COL;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.CUV;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.NOM;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.PON;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.POS;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.PVP;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.TIP;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.TOT;
+import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.UNI;
+import static java.lang.Math.ceil;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,32 +35,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sistemas.casalinda.Utilidades.claseGlobal;
-import com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView;
 import com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerViewE;
 import com.example.sistemas.casalinda.entidades.Existencia;
-import com.example.sistemas.casalinda.entidades.Pedido;
 import com.example.sistemas.casalinda.entidades.Precio;
-import com.example.sistemas.casalinda.interfaz.InterfazClickRecyclerView;
 import com.example.sistemas.casalinda.interfaz.InterfazClickRecyclerViewE;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.BOD;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.CAN;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.COD;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.COL;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.CUV;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.NOM;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.PON;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.POS;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.PVP;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.TIP;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.TOT;
-import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.UNI;
-import static java.lang.Math.ceil;
 
 public class PedidoEditar extends AppCompatActivity {
 

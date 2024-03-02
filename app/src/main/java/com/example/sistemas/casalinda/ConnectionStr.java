@@ -17,7 +17,8 @@ String ip,db,DBUserNameStr,DBPasswordStr;
     @SuppressLint("NewApi")
     public Connection connectionclasss()
     {
-        ip = "190.110.214.14";
+       // ip = "190.110.214.14"; Produccion
+        ip = "192.168.4.127"; //Prueba
         db = "siinf_casalindap_ec";
         DBUserNameStr = "Android";
         DBPasswordStr = "p!65or@lna#1522";
