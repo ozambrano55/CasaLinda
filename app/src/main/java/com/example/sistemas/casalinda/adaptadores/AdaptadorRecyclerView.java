@@ -39,9 +39,10 @@ public class AdaptadorRecyclerView  extends RecyclerView.Adapter<ViewHolderPedid
     Connection connect;
     private List<Pedido> pedidos;
     private InterfazClickRecyclerView interfazClickRecyclerView;
-    public Double tot,un;
+    public Double tot,un,ca;
     //public String cod,nomb;
     public String totString="0";
+    public String caString="0";
     //EditText can,to;
    // private com.example.sistemas.casalinda.holder.ViewHolderPedido holder;
     //private int position;
@@ -70,21 +71,25 @@ public class AdaptadorRecyclerView  extends RecyclerView.Adapter<ViewHolderPedid
         this.notifyItemChanged(i);
         tot=0.00;
         for (Pedido data:pedidos){
+            ca+=Double.parseDouble(data.getCantidad());
             tot+=Double.parseDouble(data.getTotal());
         }
-
+        caString=String.valueOf(ca);
         totString=String.valueOf(tot);
+
     }
     public void agregarPedido (Pedido pedido){
         this.pedidos.add(pedido);
         un=Double.parseDouble(pedido.getUnitario()) ;
 
         this.notifyItemInserted(this.pedidos.size()-1);
+        ca=0.00;
          tot=0.00;
         for (Pedido data:pedidos){
+            ca+=Double.parseDouble(data.getCantidad());
             tot+=Double.parseDouble(data.getTotal());
         }
-
+        caString= caString.valueOf(ca);
         totString=String.valueOf(tot);
 
     }
@@ -98,11 +103,13 @@ public class AdaptadorRecyclerView  extends RecyclerView.Adapter<ViewHolderPedid
         this.pedidos.remove(indice);
 
         this.notifyItemRemoved(indice);
+        ca=0.00;
         tot=0.00;
         for (Pedido data:pedidos){
+            ca+=Double.parseDouble(data.getCantidad());
             tot+=Double.parseDouble(data.getTotal());
         }
-
+        caString=String.valueOf(ca);
         totString=String.valueOf(tot);
     }
     @NonNull

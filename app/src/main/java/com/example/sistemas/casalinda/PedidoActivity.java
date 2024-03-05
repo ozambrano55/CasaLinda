@@ -1,7 +1,5 @@
 package com.example.sistemas.casalinda;
 
-import static java.lang.Math.ceil;
-
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,6 +34,7 @@ import com.google.zxing.integration.android.IntentResult;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -104,7 +103,7 @@ public class PedidoActivity extends AppCompatActivity {
     private ZXingScannerView vistaescaner;
     EditText etCodigo,etNomb, etCant,etCedula;
     Button btnAgregar, btnGrabar, btnEscaner, btnNuevo;
-    TextView textViewProforma, textViewFactura, textViewPedido,textViewCliente;
+    TextView textViewProforma, textViewFactura, textViewPedido,textViewCliente, textViewUnidades,textViewTotales;
     RecyclerView recyclerViewPedidos;
     final AdaptadorRecyclerView adaptadorRecyclerView=new AdaptadorRecyclerView(new InterfazClickRecyclerView() {
         @Override
@@ -137,6 +136,7 @@ public class PedidoActivity extends AppCompatActivity {
         textViewFactura=findViewById(R.id.txtFactura);
         textViewPedido=findViewById(R.id.txtPedido);
         textViewCliente=findViewById(R.id.txtCliente);
+
 
         ItemTouchHelper itemTouchHelper=new ItemTouchHelper(createHelperCallback());
        // itemTouchHelper.attachToRecyclerView(recyclerViewPedidos);
@@ -240,7 +240,7 @@ public class PedidoActivity extends AppCompatActivity {
                                                     d=d+1;
                                                     pa=a;
                                                     cant=String.valueOf(c+Integer.parseInt(cant)) ;
-                                                    total=String.valueOf( (double)Math.round ((u*Double.valueOf(cant))*100d)/100) ;
+                                                    total=String.valueOf( (double)Math.round ((u*Double.valueOf(cant))*100d)/100d) ;
                                                 }
                                                    a++;
                                            }
@@ -255,8 +255,10 @@ public class PedidoActivity extends AppCompatActivity {
                                                        //zaadaptadorRecyclerView.actualizarPedido(pa, new Pedido(cod, nomb, cant1, unit, total));
                                                    }
 
-                                               textViewProforma.setText(String.valueOf((double) Math.round(((adaptadorRecyclerView.tot)) * 100d) / 100));
-                                               textViewFactura.setText(String.valueOf((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100));
+                                               textViewProforma.setText(String.valueOf((double) Math.round(((adaptadorRecyclerView.tot)) * 100d) / 100d));
+                                               textViewFactura.setText(String.valueOf((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100d));
+                                               textViewUnidades.setText(String.valueOf((double) Math.round((adaptadorRecyclerView.ca)*100d)/100d));
+                                               textViewTotales.setText(String.valueOf((double) Math.round(((adaptadorRecyclerView.tot)) * 100d) / 100d));
                                                etCodigo.requestFocus();
                                            }else {
                                                adaptadorRecyclerView.agregarPedido(new Pedido(tip,col, cod, nomb, cant, unit, total,pvp,cuv,bod,pon));
@@ -268,8 +270,10 @@ public class PedidoActivity extends AppCompatActivity {
                                            etCodigo.setHint("Código de Producto");
                                            etCant.setText("");
                                            etCant.setHint("Cant.");
-                                           textViewProforma.setText(String.valueOf((double) Math.round(((adaptadorRecyclerView.tot)) * 100d) / 100));
-                                           textViewFactura.setText(String.valueOf((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100));
+                                           textViewProforma.setText(String.valueOf((double) Math.round(((adaptadorRecyclerView.tot)) * 100d) / 100d));
+                                           textViewFactura.setText(String.valueOf((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100d));
+                                           textViewUnidades.setText(String.valueOf((double) Math.round((adaptadorRecyclerView.ca)*100d)/100d));
+                                           textViewTotales.setText(String.valueOf((double) Math.round(((adaptadorRecyclerView.tot)) * 100d) / 100d));
                                        }
                                        else {
                                            if (Double.valueOf(cant1) > 0) {
@@ -327,6 +331,8 @@ public class PedidoActivity extends AppCompatActivity {
         super.onResume();
         final TextView textViewProforma=findViewById(R.id.txtProforma);
         final TextView textViewFactura=findViewById(R.id.txtFactura);
+        final TextView textViewCantidades=findViewById(R.id.txtCantidades);
+        final TextView textViewTotales=findViewById(R.id.txtDolares);
         claseGlobal objLectura = (claseGlobal) getApplicationContext();
         try {
                 if(objLectura.getPos()!=null) {
@@ -341,13 +347,17 @@ public class PedidoActivity extends AppCompatActivity {
                             total = objLectura.getTotal().toString();
                             adaptadorRecyclerView.actualizarPedido(posicion, new Pedido(tip,col, cod, nomb, cant, unit, total,pvp,cuv,bod,pon));
                             textViewProforma.setText (adaptadorRecyclerView.tot.toString());
-                            textViewFactura.setText(String.valueOf((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100));
+                            textViewFactura.setText(String.valueOf((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100d));
+                            textViewCantidades.setText((adaptadorRecyclerView.ca.toString()));
+                            textViewTotales.setText(adaptadorRecyclerView.tot.toString());
                             break;
                         case "E":
                             posicion = objLectura.getPos();
                             adaptadorRecyclerView.eliminar(posicion);
                             textViewProforma.setText (adaptadorRecyclerView.tot.toString());
-                            textViewFactura.setText(String.valueOf((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100));
+                            textViewFactura.setText(String.valueOf((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100d));
+                            textViewCantidades.setText((adaptadorRecyclerView.ca.toString()));
+                            textViewTotales.setText(adaptadorRecyclerView.tot.toString());
                             break;
                     }
 
@@ -367,6 +377,10 @@ public class PedidoActivity extends AppCompatActivity {
         textViewFactura.setText("");
         textViewPedido.setText("");
         textViewProforma.setText("");
+        textViewUnidades.setText("");
+        textViewUnidades.setText("");
+        textViewTotales.setText("");
+        textViewTotales.setText("");
         btnEscaner.setEnabled(true);
         btnAgregar.setEnabled(true);
         btnGrabar.setEnabled(true);
@@ -662,7 +676,7 @@ salir(e.getMessage());
                     call.setString(4, adaptadorRecyclerView.getPedidos().get(a).getCodigo());//C_Item
                     call.setString(5, adaptadorRecyclerView.getPedidos().get(a).getColor());//C_Despieze2
                     call.setDouble(6,  Float.parseFloat( adaptadorRecyclerView.getPedidos().get(a).getCantidad()));//V_Cantidad_Orden
-                    call.setDouble(7, Float.parseFloat( String.valueOf(ceil((double)Math.round(Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getUnitario())*100d)/100))));//V_Valor_Und
+                    call.setDouble(7, Float.parseFloat( String.valueOf((double)Math.round(Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getUnitario())*1000d)/1000d)));//V_Valor_Und
                     call.setDouble(8, 0);//V_Por_Descuento
                     call.setDouble(9, 12);//V_Por_Impuesto
                     call.setString(10, F_Orden);//F_Recep_Espe_Item
@@ -701,18 +715,18 @@ salir(e.getMessage());
                     call.setDouble(43,0);///Cant_Devol9
                     call.setDouble(44, 0);///Cant_Devol10
                     call.setDouble(45, 0);///V_Por_Descuento_Pie
-                    call.setDouble(46,  Float.parseFloat( String.valueOf(ceil((double)Math.round(Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*100d)/100))));//Vlr_Bruto
+                    call.setDouble(46,  Float.parseFloat( String.valueOf((double)Math.round(Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*100d)/100d)));//Vlr_Bruto
                     call.setDouble(47, 0);///Vlr_Dcto
-                    call.setDouble(48,  Float.parseFloat( String.valueOf(ceil((double)Math.round(Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*100d)/100))));//Vlr_Neto
+                    call.setDouble(48,  Float.parseFloat( String.valueOf((double)Math.round(Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*100d)/100d)));//Vlr_Neto
                     call.setDouble(49, 0);///Vlr_Dcto_Pie
-                    call.setDouble(50,  Float.parseFloat( String.valueOf(ceil((double)Math.round(Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*100d)/100))));//Vlr_Neto_Final
-                    call.setDouble(51,  Float.parseFloat( String.valueOf(ceil((double)Math.round((Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*0.12)*100d)/100))));///Vlr_Impto
-                    call.setDouble(52,  Float.parseFloat( String.valueOf(ceil((double)Math.round((Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*1.12)*100d)/100))));///Vlr_Total
+                    call.setDouble(50,  Float.parseFloat( String.valueOf((double)Math.round(Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*100d)/100d)));//Vlr_Neto_Final
+                    call.setDouble(51,  Float.parseFloat( String.valueOf((double)Math.round((Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*0.12)*100d)/100d)));///Vlr_Impto
+                    call.setDouble(52,  Float.parseFloat( String.valueOf((double)Math.round((Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getTotal())*1.12)*100d)/100d)));///Vlr_Total
                     call.setString(53, adaptadorRecyclerView.getPedidos().get(a).getBod());//C_Bodega
                     call.setString(54, "S");//Estado_Disponible
                     call.setString(55, "1");//C_Cat_Activo
                     call.setString(56, "1");//C_Cat_Item
-                    call.setDouble(57,  Float.parseFloat(String.valueOf(ceil((double)Math.round((Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getPvp())*100d)/100)))));//V_Pvp
+                    call.setDouble(57,  Float.parseFloat(String.valueOf((double)Math.round((Double.parseDouble( adaptadorRecyclerView.getPedidos().get(a).getPvp())*100d)/100d))));//V_Pvp
                     call.setString (58,adaptadorRecyclerView.getPedidos().get(a).getPon());//costoPonderado
                     call.execute();
 
@@ -789,7 +803,7 @@ salir(e.getMessage());
         String ConnectionResult = "";
         claseGlobal objEscritura=(claseGlobal)getApplicationContext();
         claseGlobal objLectura=(claseGlobal)getApplicationContext();
-
+        DecimalFormat df= new DecimalFormat("#.00");
         try {
             ConnectionStr conStr=new ConnectionStr();
             connect=conStr.connectionclasss();
@@ -810,15 +824,15 @@ salir(e.getMessage());
                     tip=(rs.getString(1));
                     cod=(rs.getString(2));
                     nomb=(rs.getString(3));
-                    if(((double)Math.round( Double.valueOf( rs.getString(8))*100d)/100)==0){
-                        unit= String.valueOf (ceil((double)Math.round( Double.valueOf( rs.getString(12))*100d)/100));
+                    if( Double.valueOf( rs.getString(6))==0){
+                        unit= String.valueOf ((double)Math.round( Double.valueOf( rs.getString(12))*10000d)/10000d);
                     }else{
-                        unit= String.valueOf (ceil((double)Math.round( Double.valueOf( rs.getString(8))*100d)/100));
+                        unit= String.valueOf ( rs.getString(6));
                     }
                     bod=(rs.getString(10));
                     cant1=(rs.getString(13));
                     cant=String.valueOf(ca);
-                    total=String.valueOf( ceil((double)Math.round ((Double.valueOf(unit)*Double.valueOf(cant))*100d)/100) );
+                    total=String.valueOf( (double)Math.round ((Double.valueOf(unit)*Double.valueOf(cant))*100d)/100d) ;
                     col=(rs.getString(17));
                     pvp=(rs.getString(18));
                     cuv=(rs.getString(19));
@@ -1037,16 +1051,22 @@ salir(e.getMessage());
                         final TextView textViewProforma=findViewById(R.id.txtProforma);
                         final TextView textViewFactura=findViewById(R.id.txtFactura);
                         final TextView textViewPedido=findViewById(R.id.txtPedido);
+                        final TextView textViewUnidades=findViewById(R.id.txtCantidades);
+                        final TextView textViewTotales=findViewById(R.id.txtDolares);
 
                             try {
                                 deleteItem(viewHolder.getAdapterPosition());
                                 if (adaptadorRecyclerView.tot == 0) {
                                     textViewProforma.setText("0.00");
                                     textViewFactura.setText("0.00");
+                                    textViewUnidades.setText("0.00");
+                                    textViewTotales.setText("0.00");
 
                                 } else {
-                                    textViewProforma.setText( String.valueOf(ceil( (double) Math.round(((adaptadorRecyclerView.tot)) * 100d) / 100)));
-                                    textViewFactura.setText(String.valueOf(ceil((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100)));
+                                    textViewProforma.setText( String.valueOf( (double) Math.round(((adaptadorRecyclerView.tot)) * 100d) / 100d));
+                                    textViewFactura.setText(String.valueOf((double) Math.round((((adaptadorRecyclerView.tot)) * 1.12) * 100d) / 100d));
+                                    textViewUnidades.setText(String.valueOf((double) Math.round((adaptadorRecyclerView.ca)*100d)/100d));
+                                    textViewTotales.setText( String.valueOf( (double) Math.round(((adaptadorRecyclerView.tot)) * 100d) / 100d));
                                 }
 
                             } catch (Exception e) {

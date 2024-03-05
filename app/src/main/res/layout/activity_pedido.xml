@@ -192,7 +192,7 @@
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="5dp"
             android:background="?android:attr/listDivider" />
 
         <LinearLayout
@@ -256,18 +256,55 @@
         <View
             android:id="@+id/divider1"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="5dp"
             android:background="@android:color/background_dark" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="400dp"
             android:gravity="fill|fill_horizontal|fill_vertical">
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pRecycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="477dp" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="fill|fill_horizontal|fill_vertical">
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/nav_header_vertical_spacing"
+                android:text="Unidades" />
+
+            <TextView
+                android:id="@+id/txtCantidades"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="0.00" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:text="Dólares" />
+
+            <TextView
+                android:id="@+id/txtDolares"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="0.00" />
         </LinearLayout>
 
     </LinearLayout>

@@ -12,7 +12,8 @@ import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.P
 import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.TIP;
 import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.TOT;
 import static com.example.sistemas.casalinda.adaptadores.AdaptadorRecyclerView.UNI;
-import static java.lang.Math.ceil;
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -120,7 +121,8 @@ public class PedidoEditar extends AppCompatActivity {
                 nombre = getIntent().getStringExtra(NOM);
                 cantidad = getIntent().getStringExtra(CAN);
                 unitario = getIntent().getStringExtra(UNI);
-                total = String.valueOf(ceil((double) Math.round((Double.valueOf(getIntent().getStringExtra(TOT))) * 100d) / 100));
+                total = String.valueOf((double) Math.round((Double.valueOf(getIntent().getStringExtra(TOT))) * 100d) / 100d);
+                //total = valueOf( ((Double.valueOf(getIntent().getStringExtra(TOT))) * 100.0) / 100.0);
                 pvp = getIntent().getStringExtra(PVP);
                 cuv = getIntent().getStringExtra(CUV);
                 pon = getIntent().getStringExtra(PON);
@@ -182,7 +184,7 @@ public class PedidoEditar extends AppCompatActivity {
                             cantidad = edCant.getText().toString();
                             unitario = edUnit.getText().toString();
 
-                            total = String.valueOf(ceil( Double.valueOf(cantidad) * Double.valueOf(unitario)));
+                            total = String.valueOf( Double.valueOf(cantidad) * Double.valueOf(unitario));
                             tvTotal.setText(total);
                         }
                     }
@@ -215,7 +217,7 @@ public class PedidoEditar extends AppCompatActivity {
                             } else {
                                 // btAceptar.setEnabled(true);
                                 //btEliminar.setEnabled(true);
-                                total = String.valueOf(ceil((double) Math.round((Double.valueOf(cantidad) * Double.valueOf(unitario)) * 100d) / 100));
+                                total = format( "%.2f",(Double.valueOf(cantidad) * Double.valueOf(unitario)));
                                 tvTotal.setText(total);
                             }
                         } catch (Exception e) {
@@ -260,13 +262,13 @@ public class PedidoEditar extends AppCompatActivity {
                                     edUnit.setText(unitario);
                                 } else {
                                     if (cn <= Double.parseDouble(inventario)) {
-                                        total = String.valueOf(ceil((double) Math.round((Double.valueOf(cantidadN) * Double.valueOf(unitario)) * 100d) / 100));
+                                        total = valueOf((double) Math.round((Double.valueOf(cantidadN) * Double.valueOf(unitario)) * 100d) / 100d);
                                         tvTotal.setText(total);
                                     } else {
                                         mensaje("Se Asigna la cantidad máxima disponible" + inventario, "no se puede facturar la cantidad " + cantidadN, 0);
                                         //Toast.makeText(getApplicationContext(), "Se Asigna la cantidad maxima disponible" + inventario + " no se puede facturar la cantidad digitada de " + cantidadN, Toast.LENGTH_LONG).show();
                                         edCant.setText(inventario);
-                                        total = String.valueOf(ceil((double) Math.round((Double.valueOf(cantidadN) * Double.valueOf(unitario)) * 100d) / 100));
+                                        total = valueOf((double) Math.round((Double.valueOf(cantidadN) * Double.valueOf(unitario)) * 100d) / 100d);
                                         tvTotal.setText(total);
                                     }
                                 }
@@ -359,7 +361,7 @@ public class PedidoEditar extends AppCompatActivity {
         String d="";
         String n="";
         for (int i =0;i<cadena_div.length;i++){
-            d=String.valueOf(cadena_div[i]) ;
+            d= valueOf(cadena_div[i]) ;
                 if(Character.isDigit(cadena_div[i])||d.equals(".")){
                     n+=cadena_div[i];
                 }

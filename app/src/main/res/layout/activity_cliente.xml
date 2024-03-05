@@ -239,6 +239,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/ic_des50"
             android:drawableTop="@drawable/ic_des50"
             android:text="Cancelar"
             tools:targetApi="lollipop" />
